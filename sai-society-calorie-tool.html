@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sa'i Society — find your number</title>
+<title>Sa'i Society — glute strength class</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 <style>
   :root{
     --forest: #16241B;
@@ -58,7 +59,7 @@
   /* ---------- hero ---------- */
   .hero{
     position:relative;
-    min-height: 86vh;
+    min-height: 80vh;
     display:flex;
     flex-direction:column;
     justify-content: center;
@@ -82,7 +83,7 @@
     line-height: 1.04;
     letter-spacing: -0.01em;
     color: var(--bone);
-    max-width: 14ch;
+    max-width: 15ch;
   }
   .hero h1 em{
     font-style: italic;
@@ -92,7 +93,7 @@
     position:relative; z-index:1;
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     color: var(--sage);
-    max-width: 38ch;
+    max-width: 40ch;
     margin-top: 28px;
     line-height: 1.6;
   }
@@ -147,6 +148,13 @@
     flex:1;
     height:1px;
     background: var(--line);
+  }
+  .section-lede{
+    font-size:15px;
+    color: var(--sage);
+    max-width: 56ch;
+    line-height:1.6;
+    margin: -28px 0 40px;
   }
 
   /* ---------- the tool ---------- */
@@ -326,12 +334,24 @@
   .maint-strip{
     display:flex; justify-content:center; gap:36px;
     padding: 18px 0 0;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     border-top: 1px solid var(--line);
   }
   .maint-item{ text-align:center; }
   .maint-item .mval{ font-family: var(--sans); font-weight:600; font-size:18px; color: var(--bone); }
   .maint-item .mlabel{ font-size:11px; letter-spacing:0.05em; text-transform:uppercase; color: var(--sage-dim); margin-top:4px; }
+
+  .explainer-box{
+    background: var(--forest);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--sage);
+    line-height: 1.6;
+  }
+  .explainer-box strong{ color: var(--bone); font-weight:600; }
 
   .focus-box{
     background: var(--forest);
@@ -369,6 +389,227 @@
     text-decoration-color: var(--moss-light);
   }
   .restart-link:hover{ color: var(--sage); }
+
+  /* ---------- save plan actions ---------- */
+  .save-actions{
+    display:flex; gap:12px; flex-wrap:wrap;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .save-btn{
+    flex:1;
+    min-width: 160px;
+    background: var(--clay);
+    color: var(--forest-deep);
+    border:none;
+    font-family: var(--sans);
+    font-weight:600;
+    font-size: 14px;
+    padding: 14px 18px;
+    border-radius: 2px;
+    cursor:pointer;
+    transition: background 0.2s ease;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .save-btn:hover{ background: var(--clay-bright); }
+  .save-btn.secondary{
+    background: transparent;
+    border: 1px solid var(--sage-dim);
+    color: var(--bone);
+  }
+  .save-btn.secondary:hover{ border-color: var(--bone); background: rgba(237,231,217,0.04); }
+  .save-status{
+    font-size: 12px;
+    color: var(--sage-dim);
+    text-align:center;
+    margin-top: 10px;
+    min-height: 16px;
+  }
+
+  /* ---------- exportable plan card (off-screen render target) ---------- */
+  .plan-card{
+    width: 720px;
+    background: var(--forest);
+    padding: 56px 56px 48px;
+    font-family: var(--sans);
+    color: var(--bone);
+  }
+  .plan-card .pc-eyebrow{
+    font-size: 12px; letter-spacing:0.14em; text-transform:uppercase;
+    color: var(--clay-bright); font-weight:600; margin-bottom: 20px;
+  }
+  .plan-card .pc-result{
+    text-align:center;
+    padding: 28px 0 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .plan-card .pc-rlabel{ font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color: var(--sage-dim); }
+  .plan-card .pc-number{
+    font-family: var(--serif);
+    font-size: 4rem;
+    color: var(--clay-bright);
+    margin: 8px 0 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .plan-card .pc-number span{ font-size:0.3em; color: var(--sage); font-family: var(--sans); margin-left:6px; }
+  .plan-card .pc-sub{ font-size:14px; color:var(--sage); }
+  .plan-card .pc-section-title{
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--bone);
+    margin-bottom: 16px;
+  }
+  .plan-card .pc-block{ margin-bottom: 30px; }
+  .plan-card .pc-stations{ display:flex; flex-direction:column; gap:12px; }
+  .plan-card .pc-station{
+    display:flex; justify-content:space-between; align-items:baseline;
+    background: var(--moss); border-radius:3px; padding: 12px 16px;
+  }
+  .plan-card .pc-station .pcs-name{ font-size:14px; font-weight:600; color: var(--bone); }
+  .plan-card .pc-station .pcs-target{ font-size:12px; color: var(--clay-bright); }
+  .plan-card .pc-remember{ display:flex; flex-direction:column; gap:10px; }
+  .plan-card .pc-remember-item{ font-size:13px; color: var(--sage); line-height:1.5; padding-left:16px; position:relative; }
+  .plan-card .pc-remember-item::before{ content:"—"; position:absolute; left:0; color: var(--clay); }
+  .plan-card .pc-remember-item strong{ color: var(--bone-dim); font-weight:600; }
+  .plan-card .pc-footer{
+    text-align:center; font-family: var(--serif); font-style:italic;
+    color: var(--sage); font-size: 1rem; margin-top: 8px;
+  }
+
+  /* ---------- terms strip (deficit/maintenance/surplus explainer) ---------- */
+  .terms-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 720px){ .terms-grid{ grid-template-columns: 1fr; } }
+  .term-card{
+    background: var(--moss);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 26px 24px;
+  }
+  .term-card .tlabel{
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clay-bright);
+    font-weight: 600;
+    margin-bottom: 12px;
+    display:block;
+  }
+  .term-card h3{
+    font-family: var(--serif);
+    font-weight:400;
+    font-size: 1.35rem;
+    color: var(--bone);
+    margin-bottom: 10px;
+  }
+  .term-card p{
+    font-size: 14px;
+    color: var(--sage);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .term-card .tgoal{
+    font-size: 12px;
+    color: var(--sage-dim);
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    margin-top: 14px;
+  }
+  .term-card .tgoal strong{ color: var(--bone-dim); font-weight:600; }
+
+  /* ---------- workout stations ---------- */
+  .station-list{ display:flex; flex-direction:column; gap:1px; background: var(--line); border-radius:4px; overflow:hidden; }
+  .station{
+    background: var(--moss);
+    padding: 28px 30px;
+    display:grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 22px;
+    align-items:center;
+  }
+  @media (max-width: 640px){
+    .station{ grid-template-columns: 44px 1fr; }
+    .station .starget{ grid-column: 1 / -1; margin-top:10px; }
+  }
+  .station .sidx{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--clay-bright);
+    text-align:center;
+  }
+  .station .sname{
+    font-family: var(--serif);
+    font-weight:400;
+    font-size: 1.3rem;
+    color: var(--bone);
+    margin-bottom: 4px;
+  }
+  .station .sdesc{
+    font-size: 13px;
+    color: var(--sage);
+    line-height:1.5;
+  }
+  .station .starget{
+    text-align:right;
+    min-width: 150px;
+  }
+  .station .starget .tval{
+    font-size: 13px;
+    font-weight:600;
+    color: var(--clay-bright);
+    display:block;
+  }
+  .station .starget .tlbl{
+    font-size: 10px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color: var(--sage-dim);
+    margin-top:3px;
+    display:block;
+  }
+
+  /* ---------- remember checklist ---------- */
+  .remember-wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--moss);
+    border: 1px solid var(--clay);
+    border-radius: 4px;
+    padding: 40px 40px 36px;
+  }
+  .remember-wrap .rtitle{
+    font-family: var(--serif);
+    font-weight:400;
+    font-size: 1.6rem;
+    color: var(--bone);
+    text-align:center;
+    margin-bottom: 28px;
+  }
+  .remember-list{ display:flex; flex-direction:column; gap:18px; }
+  .remember-item{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .remember-item .rnum{
+    font-family: var(--serif);
+    font-style:italic;
+    color: var(--clay-bright);
+    font-size: 1.1rem;
+    min-width: 22px;
+  }
+  .remember-item p{
+    font-size: 15px;
+    color: var(--bone-dim);
+    line-height: 1.55;
+  }
+  .remember-item strong{ color: var(--bone); font-weight:600; }
 
   /* ---------- philosophy / footer ---------- */
   .philosophy{
@@ -420,9 +661,9 @@
       </g>
     </svg>
   </div>
-  <p class="eyebrow">Sa'i Society — fuel &amp; focus tool</p>
-  <h1>Know your number.<br><em>Move</em> with intention.</h1>
-  <p class="sub">A two-minute check-in to find your maintenance calories and a clear focus for your goal, whether you're building or leaning down. No gimmicks. Just your numbers.</p>
+  <p class="eyebrow">Sa'i Society — glute strength class</p>
+  <h1>Know your number.<br><em>Train</em> with intention.</h1>
+  <p class="sub">A quick check-in to find your daily calorie target, then everything you need for today's stations — what to do, how, and what it's working.</p>
   <div class="hero-cta">
     <button class="btn-primary" onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">Find my number</button>
     <span class="scroll-hint">↓ takes about 90 seconds</span>
@@ -448,16 +689,24 @@
 
       <!-- STEP 1: GOAL -->
       <div class="step active" data-step="1">
-        <h3>What are you working toward?</h3>
-        <p class="hint">This sets the direction. You can change it any time.</p>
+        <h3>Are you looking to:</h3>
+        <p class="hint">This sets your daily calorie target. You can change it any time.</p>
         <div class="goal-grid">
           <button class="goal-card" data-goal="deficit" onclick="selectGoal('deficit', this)">
-            <span class="gname">Calorie deficit</span>
-            <span class="gdesc">Eating below maintenance to lean down while holding onto strength.</span>
+            <span class="gname">Lose body fat</span>
+            <span class="gdesc">Eat below maintenance while holding onto strength.</span>
           </button>
           <button class="goal-card" data-goal="surplus" onclick="selectGoal('surplus', this)">
-            <span class="gname">Calorie surplus</span>
-            <span class="gdesc">Eating above maintenance to build muscle and get stronger.</span>
+            <span class="gname">Build muscle</span>
+            <span class="gdesc">Eat above maintenance to support muscle growth.</span>
+          </button>
+          <button class="goal-card" data-goal="maintenance" onclick="selectGoal('maintenance', this)">
+            <span class="gname">Get stronger</span>
+            <span class="gdesc">Eat at maintenance and let your training do the work.</span>
+          </button>
+          <button class="goal-card" data-goal="maintenance" onclick="selectGoal('maintenance', this)">
+            <span class="gname">Improve overall health</span>
+            <span class="gdesc">Eat at maintenance and build consistent habits.</span>
           </button>
         </div>
       </div>
@@ -521,9 +770,130 @@
   </div>
 </section>
 
-<section class="philosophy-section">
+<section id="terms">
   <div class="label-row">
     <span class="num">ii.</span>
+    <h2>Deficit, maintenance, surplus</h2>
+    <span class="rule"></span>
+  </div>
+  <p class="section-lede">Three states your body can be in, depending on calories in versus calories out. Your goal decides which one you want.</p>
+
+  <div class="terms-grid">
+    <div class="term-card">
+      <span class="tlabel">Eating below maintenance</span>
+      <h3>Deficit</h3>
+      <p>You eat fewer calories than your body burns in a day, so it pulls the difference from stored energy — mostly fat, if protein and training stay solid.</p>
+      <div class="tgoal">Goal: <strong>Lose body fat</strong></div>
+    </div>
+    <div class="term-card">
+      <span class="tlabel">Eating at balance</span>
+      <h3>Maintenance</h3>
+      <p>You eat roughly what your body burns in a day. Weight stays steady, and your training drives the change instead of your fork.</p>
+      <div class="tgoal">Goal: <strong>Get stronger / improve health</strong></div>
+    </div>
+    <div class="term-card">
+      <span class="tlabel">Eating above maintenance</span>
+      <h3>Surplus</h3>
+      <p>You eat more calories than your body burns, giving it the extra raw material it needs to build new muscle tissue.</p>
+      <div class="tgoal">Goal: <strong>Build muscle</strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="workouts">
+  <div class="label-row">
+    <span class="num">iii.</span>
+    <h2>Today's stations</h2>
+    <span class="rule"></span>
+  </div>
+  <p class="section-lede">Five stations, five angles on the same goal: a stronger lower body. Move through each with control before adding load.</p>
+
+  <div class="station-list">
+    <div class="station">
+      <span class="sidx">01</span>
+      <div>
+        <div class="sname">Hip thrust</div>
+        <div class="sdesc">Drive through your heels and squeeze at the top — this is the main lift of the day.</div>
+      </div>
+      <div class="starget">
+        <span class="tval">Glute max</span>
+        <span class="tlbl">Primary target</span>
+      </div>
+    </div>
+    <div class="station">
+      <span class="sidx">02</span>
+      <div>
+        <div class="sname">RDL (Romanian deadlift)</div>
+        <div class="sdesc">Hinge at the hips, soft knees, weight close to your legs the whole way down.</div>
+      </div>
+      <div class="starget">
+        <span class="tval">Glute max + hamstrings</span>
+        <span class="tlbl">Primary target</span>
+      </div>
+    </div>
+    <div class="station">
+      <span class="sidx">03</span>
+      <div>
+        <div class="sname">Step up</div>
+        <div class="sdesc">Drive up through the front foot, control the descent — don't push off the back leg.</div>
+      </div>
+      <div class="starget">
+        <span class="tval">Glute max + quads</span>
+        <span class="tlbl">Primary target</span>
+      </div>
+    </div>
+    <div class="station">
+      <span class="sidx">04</span>
+      <div>
+        <div class="sname">Side-lying weighted hip abduction</div>
+        <div class="sdesc">Lift from the side of your hip, not your lower back — keep the movement slow and controlled.</div>
+      </div>
+      <div class="starget">
+        <span class="tval">Glute medius</span>
+        <span class="tlbl">Primary target</span>
+      </div>
+    </div>
+    <div class="station">
+      <span class="sidx">05</span>
+      <div>
+        <div class="sname">Cardio</div>
+        <div class="sdesc">Your finisher — keep effort steady and use it to bring your heart rate up before you cool down.</div>
+      </div>
+      <div class="starget">
+        <span class="tval">Conditioning</span>
+        <span class="tlbl">Primary target</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="remember">
+  <div class="remember-wrap">
+    <div class="rtitle">Things to remember</div>
+    <div class="remember-list">
+      <div class="remember-item">
+        <span class="rnum">01</span>
+        <p><strong>Perform this workout 1–2 times a week</strong> — your glutes need recovery between sessions to actually grow.</p>
+      </div>
+      <div class="remember-item">
+        <span class="rnum">02</span>
+        <p><strong>Aim to gradually increase weight over time.</strong> Small, steady increases beat jumping too fast.</p>
+      </div>
+      <div class="remember-item">
+        <span class="rnum">03</span>
+        <p><strong>Eat around 1g of protein per pound of bodyweight every day</strong> — it's what your muscles actually rebuild from.</p>
+      </div>
+      <div class="remember-item">
+        <span class="rnum">04</span>
+        <p><strong>Focus on progress, not perfection.</strong> Showing up consistently beats any single perfect session.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy-section">
+  <div class="label-row">
+    <span class="num">iv.</span>
     <h2>Why we built this</h2>
     <span class="rule"></span>
   </div>
@@ -573,12 +943,6 @@ function updateFreq(val){
   document.getElementById('freqDesc').textContent = freqLabels[val];
 }
 
-['feet','inches','weight','age'].forEach(id=>{
-  document.addEventListener('DOMContentLoaded', ()=>{
-    document.getElementById(id).addEventListener('input', validateStep);
-  });
-});
-
 function validateStep(){
   const nextBtn = document.getElementById('nextBtn');
   let ok = false;
@@ -586,7 +950,6 @@ function validateStep(){
     ok = !!state.goal;
   } else if(state.step === 2){
     const feet = parseFloat(document.getElementById('feet').value);
-    const inches = parseFloat(document.getElementById('inches').value) || 0;
     const weight = parseFloat(document.getElementById('weight').value);
     const age = parseFloat(document.getElementById('age').value);
     ok = !!state.sex && feet > 0 && weight > 0 && age > 0;
@@ -648,27 +1011,40 @@ function renderResult(){
   const multiplier = activityMap[state.freq];
   const maintenance = Math.round(bmr * multiplier);
 
-  let target, deltaLabel, focusItems, goalTitle;
+  let target, deltaLabel, focusItems, goalTitle, explainerHtml;
 
   if(state.goal === 'deficit'){
     target = Math.round(maintenance - (maintenance * 0.18));
     deltaLabel = `−${maintenance - target} cal / day`;
     goalTitle = 'your deficit target';
+    explainerHtml = `<strong>Deficit</strong> means eating below maintenance, so your body pulls energy from stored fat to make up the gap.`;
     focusItems = [
-      'Keep protein high — aim for roughly 0.7–1g per pound of bodyweight to protect muscle while you lean down.',
+      'Keep protein high — aim for roughly 1g per pound of bodyweight to protect muscle while you lean down.',
       'Lift heavy and lift often. A deficit is not the time to back off your strength work — it tells your body what to keep.',
       'Expect 0.5–1lb of loss per week. Faster than that usually means muscle, not fat, is going with it.',
       'Sleep and stress matter as much as food here. Under-recovery will stall you even when the math is right.'
     ];
-  } else {
+  } else if(state.goal === 'surplus'){
     target = Math.round(maintenance + (maintenance * 0.12));
     deltaLabel = `+${target - maintenance} cal / day`;
     goalTitle = 'your surplus target';
+    explainerHtml = `<strong>Surplus</strong> means eating above maintenance, giving your body the extra fuel it needs to build new muscle.`;
     focusItems = [
       'Progressive overload is the whole job. The surplus only builds muscle if your lifts are also climbing.',
-      'Protein still leads — roughly 0.7–1g per pound of bodyweight supports the muscle you are training for.',
+      'Protein still leads — roughly 1g per pound of bodyweight supports the muscle you are training for.',
       'Expect 0.25–0.5lb of gain per week. Slower and steadier keeps the gain mostly muscle, not just bodyfat.',
       'Track strength, not just the scale. Heavier lifts over time are the clearest sign this is working.'
+    ];
+  } else {
+    target = maintenance;
+    deltaLabel = `at maintenance`;
+    goalTitle = 'your maintenance target';
+    explainerHtml = `<strong>Maintenance</strong> means eating roughly what your body burns, so your training — not your fork — drives the change.`;
+    focusItems = [
+      'Let your lifts do the talking. Track weight on the bar and reps, not the scale.',
+      'Protein still matters — roughly 1g per pound of bodyweight keeps you recovering well between sessions.',
+      'Consistency beats intensity here. Showing up week after week is what builds strength and habits that stick.',
+      'Sleep, hydration, and stress all affect how you perform — treat them as part of training, not extras.'
     ];
   }
 
@@ -676,7 +1052,7 @@ function renderResult(){
     <div class="result-top">
       <span class="rlabel">${goalTitle}</span>
       <div class="result-number">${target.toLocaleString()}<span class="unit">cal / day</span></div>
-      <p class="result-sub">${deltaLabel} from maintenance</p>
+      <p class="result-sub">${deltaLabel}${state.goal !== 'maintenance' ? ' from maintenance' : ''}</p>
     </div>
     <div class="maint-strip">
       <div class="maint-item">
@@ -692,14 +1068,23 @@ function renderResult(){
         <div class="mlabel">Per week</div>
       </div>
     </div>
+    <div class="explainer-box">${explainerHtml}</div>
     <div class="focus-box">
       <h4>Where to focus</h4>
       <ul>
         ${focusItems.map(item => `<li>${item}</li>`).join('')}
       </ul>
     </div>
+    <div class="save-actions">
+      <button class="save-btn" onclick="downloadPlanImage()">
+        <i class="ti ti-download" aria-hidden="true"></i> Save my plan
+      </button>
+    </div>
+    <p class="save-status" id="saveStatus"></p>
     <span class="restart-link" onclick="restart()">Start over with new numbers</span>
   `;
+
+  window._lastResult = { target, maintenance, bmr: Math.round(bmr), freq: state.freq, goalTitle, deltaLabel, explainerHtml, focusItems, goal: state.goal };
 }
 
 function restart(){
@@ -722,11 +1107,75 @@ function restart(){
   document.getElementById('tool').scrollIntoView({behavior:'smooth'});
 }
 
-document.getElementById('feet').addEventListener?.('input', validateStep);
+function populatePlanCard(){
+  const r = window._lastResult;
+  if(!r) return;
+  document.getElementById('pcRlabel').textContent = r.goalTitle;
+  document.getElementById('pcNumber').innerHTML = `${r.target.toLocaleString()}<span>cal / day</span>`;
+  document.getElementById('pcSub').textContent = r.deltaLabel + (r.goal !== 'maintenance' ? ' from maintenance' : '');
+}
+
+function downloadPlanImage(){
+  const statusEl = document.getElementById('saveStatus');
+  if(!window._lastResult){ return; }
+  populatePlanCard();
+  statusEl.textContent = 'Preparing your image…';
+
+  if(typeof html2canvas === 'undefined'){
+    statusEl.textContent = "Couldn't load the image tool — check your connection and try again.";
+    return;
+  }
+
+  html2canvas(document.getElementById('planCard'), {
+    backgroundColor: '#16241B',
+    scale: 2
+  }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'sai-society-my-plan.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    statusEl.textContent = 'Saved — check your downloads or camera roll.';
+  }).catch(() => {
+    statusEl.textContent = "Couldn't generate the image. Try again or use Email instead.";
+  });
+}
+
 ['feet','inches','weight','age'].forEach(id=>{
   document.getElementById(id).addEventListener('input', validateStep);
 });
 </script>
 
+<div id="planCardHost" style="position:absolute; left:-9999px; top:0;" aria-hidden="true">
+  <div class="plan-card" id="planCard">
+    <div class="pc-eyebrow">Sa'i Society — my plan</div>
+    <div class="pc-result">
+      <div class="pc-rlabel" id="pcRlabel">your target</div>
+      <div class="pc-number" id="pcNumber">0<span>cal / day</span></div>
+      <div class="pc-sub" id="pcSub"></div>
+    </div>
+    <div class="pc-block">
+      <div class="pc-section-title">Today's stations</div>
+      <div class="pc-stations">
+        <div class="pc-station"><span class="pcs-name">01 — Hip thrust</span><span class="pcs-target">Glute max</span></div>
+        <div class="pc-station"><span class="pcs-name">02 — RDL</span><span class="pcs-target">Glute max + hamstrings</span></div>
+        <div class="pc-station"><span class="pcs-name">03 — Step up</span><span class="pcs-target">Glute max + quads</span></div>
+        <div class="pc-station"><span class="pcs-name">04 — Side-lying hip abduction</span><span class="pcs-target">Glute medius</span></div>
+        <div class="pc-station"><span class="pcs-name">05 — Cardio</span><span class="pcs-target">Conditioning</span></div>
+      </div>
+    </div>
+    <div class="pc-block" style="margin-bottom:8px;">
+      <div class="pc-section-title">Things to remember</div>
+      <div class="pc-remember">
+        <div class="pc-remember-item"><strong>Perform this workout 1–2 times a week</strong> for recovery between sessions.</div>
+        <div class="pc-remember-item"><strong>Gradually increase weight over time.</strong></div>
+        <div class="pc-remember-item"><strong>Eat around 1g of protein per pound of bodyweight daily.</strong></div>
+        <div class="pc-remember-item"><strong>Focus on progress, not perfection.</strong></div>
+      </div>
+    </div>
+    <div class="pc-footer">Sa'i Society</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
